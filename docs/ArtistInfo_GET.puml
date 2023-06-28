@@ -1,0 +1,16 @@
+@startuml
+boundary CLIENT
+
+title Get Artist Information by Artist Id(HTTP GET)
+
+autonumber
+CLIENT -> ArtistController: GET Artist Information by artistId
+ArtistController --> ArtistService: GET Artist Information by artistId
+ArtistService -> EventManagerRestClient: Get Content Metadata for URLs
+EventManagerRestClient -> S3: Fetch events, artists and venues from remotely hosted REST endpoints
+S3 -> EventManagerRestClient: (response)
+EventManagerRestClient -> ArtistService: (response)
+ArtistService -> ArtistService: process data and form the response
+S3 -> CLIENT: (response)
+
+@enduml
