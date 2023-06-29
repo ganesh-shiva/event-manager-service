@@ -75,3 +75,44 @@ Sample Response:
     ]
 }
 ```
+
+## How to build
+`
+gradle clean build
+`
+
+## How to run the application
+
+1. Clone the project to local 
+```
+git@github.com:ganesh-shiva/event-manager-service.git
+```
+2. Build the project using above command
+3. After build is successful, please enter below command to start the service in terminal,
+```
+./gradlew bootRun
+```
+This command will start the service and once service is up & running, you can invoke endPoint using REST Client like Postman tool as documented above
+
+4. Or you can run the service in IDE tool as well
+
+## Tech Stack used
+```
+Java 17
+Embedded Tomcat container
+Gradle build tool
+Apache Http Client for REST invocation
+SLF4J for logging
+Lombok for creating model classes
+```
+
+## Trade-off and Design decision
+1. Keeping happy flow in mind and as a version 1.0, I have kept the flow direct and simple. For every invocation of Get Artist information, the service at the moment make a REST call to remotely exposed endpoint(S3) each time.
+
+```
+HTTP GET: /eventManager/v1/artist/{artistId}
+```
+
+2. We can greatly optimize this architecture by introducing in-memory Caching and store the data in the cache after invoking REST call to remotely exposed endpoint(S3) during service start-up.
+
+3. Introducing the caching layer, not only improves the efficiency and throughput of the API but also reduces the avoidable multiple network calls  
