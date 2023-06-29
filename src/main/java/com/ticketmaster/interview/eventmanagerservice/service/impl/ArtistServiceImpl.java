@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ticketmaster.interview.eventmanagerservice.client.EventManagerRestClient;
+import com.ticketmaster.interview.eventmanagerservice.exception.EventManagerException;
 import com.ticketmaster.interview.eventmanagerservice.model.Artist;
 import com.ticketmaster.interview.eventmanagerservice.model.ArtistInformation;
 import com.ticketmaster.interview.eventmanagerservice.model.Event;
@@ -41,20 +42,25 @@ public class ArtistServiceImpl implements ArtistService {
             // fetch all the Artists from remote endpoint
             Collection<Artist> artists = eventManagerRestClient.getArtists();
 
-            Optional<Artist> artistOptional = artists.stream()
+            /*
+                filter-out by given artistId. If found, return the Artist object OR Else throw exception
+             */
+            Artist artist = artists.stream()
                 .filter(a -> a.getId().equals(artistId))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Artist Id!!"));
 
-            Artist artist = artistOptional.get();
-
+            // fetch all the Events from remote endpoint
             Collection<Event> events = eventManagerRestClient.getEvents();
 
+            //  filter-out the events in which given artist is performing
             List<EventInfo> eventsInArtistPerforming = events.stream()
                 .filter(Objects::nonNull)
                 .filter(event -> isArtistPresent(event, artist.getId()))
                 .map(this::toEventInfo)
                 .collect(Collectors.toList());
 
+            // construct artist info with event & venue details
             ArtistInformation artistInformation = ArtistInformation.builder()
                 .id(artist.getId())
                 .imgSrc(artist.getImgSrc())
@@ -67,8 +73,8 @@ public class ArtistServiceImpl implements ArtistService {
             return artistInformation;
         } catch (Exception e) {
             log.error("Exception occurred while fetching Details {}", e.getMessage(), e);
+            throw new EventManagerException(e.getMessage(), e);
         }
-        return null;
     }
 
     private EventInfo toEventInfo(final Event event) {

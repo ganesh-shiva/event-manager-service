@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +20,14 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @Builder
-public class EventSummaryResponse {
+public class EventManagerResponse {
 
-    private List<Event> events;
+    @JsonProperty(value = "result")
+    private ResultState result;
 
-    public EventSummaryResponse() {
-    }
+    @JsonProperty("artistInfo")
+    private ArtistInformation artistInfo;
+
+    @JsonProperty(value = "messages")
+    private List<String> messages;
 }

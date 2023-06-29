@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.ticketmaster.interview.eventmanagerservice.PayloadFixture;
 import com.ticketmaster.interview.eventmanagerservice.util.Serde;
 
 /**
@@ -26,17 +27,13 @@ import com.ticketmaster.interview.eventmanagerservice.util.Serde;
 @RunWith(MockitoJUnitRunner.class)
 public class EventManagerRestClientTest {
 
-    /*private final Serde serde = new Serde();
+    private final Serde serde = new Serde();
     private EventManagerRestClient restClient;
 
-    @Mock
-    private CloseableHttpClient mockHttpClient;
-    @Mock
-    CloseableHttpResponse mockResponse;
-    @Mock
-    InputStream mockInputStream;
-    @Mock
-    StatusLine mockStatusLine;
+    @Mock CloseableHttpClient mockHttpClient;
+    @Mock CloseableHttpResponse mockResponse;
+    @Mock InputStream mockInputStream;
+    @Mock StatusLine mockStatusLine;
 
     @Before
     public void setup() throws Exception {
@@ -53,7 +50,7 @@ public class EventManagerRestClientTest {
 
     @Test
     public void getArtists200Status() throws Exception {
-        var fixtureResponse = SesPayloadFixture.getAllActiveChangeSet();
+        var fixtureResponse = PayloadFixture.getArtists();
         byte[] responseJson = serde.serialise(fixtureResponse).getBytes();
         when(mockHttpClient.execute(any(HttpGet.class))).thenReturn(mockResponse);
         when(mockInputStream.readAllBytes()).thenReturn(responseJson);
@@ -61,11 +58,9 @@ public class EventManagerRestClientTest {
 
         var actualResponse = restClient.getArtists();
         assertNotNull(actualResponse);
-        actualResponse.getActiveChangeSetResponseLiteList().forEach(i -> {
+        actualResponse.forEach(i -> {
             assertNotNull(i.getId());
-            assertNotNull(i.getStatus());
         });
-    }*/
-
+    }
 
 }
