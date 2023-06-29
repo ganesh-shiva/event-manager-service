@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * Wrapper response class encapsulating ArtistInformation if SUCCESS, otherwise shows error message
+ *
  * @author Ganesh Shiva
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)

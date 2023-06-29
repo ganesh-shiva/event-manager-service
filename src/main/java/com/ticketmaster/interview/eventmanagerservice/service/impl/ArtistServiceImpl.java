@@ -36,6 +36,11 @@ public class ArtistServiceImpl implements ArtistService {
         this.eventManagerRestClient = eventManagerRestClient;
     }
 
+    /*
+        ToDo: Instead of invoking S3 endpoint on each request for Artist Information, we can prepare the data by invoking call only once during service start-up and keep the data in Cache.
+        ToDo: By doing this, we can eliminate the remote S3 REST endpoint call which improves throughput of getArtistInfo API
+     */
+
     @Override
     public ArtistInformation getArtistInfo(String artistId) {
         try {

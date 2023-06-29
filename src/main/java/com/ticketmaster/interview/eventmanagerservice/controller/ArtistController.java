@@ -2,6 +2,8 @@ package com.ticketmaster.interview.eventmanagerservice.controller;
 
 import java.util.Collections;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ticketmaster.interview.eventmanagerservice.model.ArtistInformation;
 import com.ticketmaster.interview.eventmanagerservice.model.EventManagerResponse;
 import com.ticketmaster.interview.eventmanagerservice.model.ResultState;
 import com.ticketmaster.interview.eventmanagerservice.service.ArtistService;
@@ -40,18 +41,18 @@ public class ArtistController {
     }
 
     @GetMapping(value = "/artist/{artistId}", produces = PRODUCES)
-    public ResponseEntity<EventManagerResponse> getArtistInfo(@PathVariable("artistId") String artistId) {
+    public ResponseEntity<EventManagerResponse> getArtistInfo(@PathVariable("artistId") @NotBlank(message = "Invalid artistId value") String artistId) {
         log.info("Get Artist Info for artistId {}", artistId);
         try {
             var artistInformation = artistService.getArtistInfo(artistId);
-            EventManagerResponse eventManagerResponse = EventManagerResponse.builder()
+            var eventManagerResponse = EventManagerResponse.builder()
                 .result(ResultState.SUCCESS)
                 .artistInfo(artistInformation)
                 .build();
             return ResponseEntity.status(HttpStatus.OK).body(eventManagerResponse);
         } catch (Exception ex) {
             log.error("Exception occurred while getting Artist Information : {}", ex.getMessage(), ex);
-            EventManagerResponse eventManagerResponse = EventManagerResponse.builder()
+            var eventManagerResponse = EventManagerResponse.builder()
                 .result(ResultState.ERROR)
                 .messages(Collections.singletonList(ex.getMessage()))
                 .build();

@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * Bean class represents Artist information along with events and venue details
+ *
  * @author Ganesh Shiva
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)

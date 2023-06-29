@@ -79,6 +79,24 @@ Sample Response:
 }
 ```
 
+If incase of invalid artistId,
+
+Sample Request:
+
+`
+http://localhost:8080/eventManager/v1/artist/222
+`
+
+Sample Response:
+```
+{
+    "result": "ERROR",
+    "messages": [
+        "Invalid Artist Id!!"
+    ]
+}
+```
+
 ## How to build
 `
 gradle clean build
@@ -119,3 +137,4 @@ HTTP GET: /eventManager/v1/artist/{artistId}
 2. We can greatly optimize this architecture by introducing in-memory Caching and store the data in the cache after invoking REST call to remotely exposed endpoint(S3) during service start-up.
 
 3. Introducing the caching layer, not only improves the efficiency and throughput of the API but also reduces the avoidable multiple network calls  
+4. S3 endpoints are now kept inside te class as constant, instead better to read it from yaml/properties file 

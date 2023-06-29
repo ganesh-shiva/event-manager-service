@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ * Bean class represents Event information
+ *
  * @author Ganesh Shiva
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)

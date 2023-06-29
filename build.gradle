@@ -22,6 +22,7 @@ dependencies {
 	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 	implementation 'junit:junit'
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 
 	testCompileOnly 'org.projectlombok:lombok:1.18.28'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'

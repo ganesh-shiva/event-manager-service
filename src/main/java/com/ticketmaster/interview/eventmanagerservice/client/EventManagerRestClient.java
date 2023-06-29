@@ -55,7 +55,7 @@ public class EventManagerRestClient extends EventManagerRestClientBase {
             if (statusCode == HttpStatus.SC_OK) {
                 var payload = response.getEntity().getContent().readAllBytes();
                 var artists =  (Collection<Artist>) serde.deserialiseToCollection(payload, Artist.class);
-                log.info("artists.json API invoked successfully. Event details returned is {}", artists);
+                log.debug("artists.json API invoked successfully. Event details returned is {}", artists);
                 return artists;
             } else {
                 var message = String.format("GET request for getArtists API at: %s returned unexpected response status: %d",
@@ -86,7 +86,7 @@ public class EventManagerRestClient extends EventManagerRestClientBase {
             if (statusCode == HttpStatus.SC_OK) {
                 var payload = response.getEntity().getContent().readAllBytes();
                 var venues =  (Collection<Venue>) serde.deserialiseToCollection(payload, Venue.class);
-                log.info("venues.json API invoked successfully. Event details returned is {}", venues);
+                log.debug("venues.json API invoked successfully. Event details returned is {}", venues);
                 return venues;
             } else {
                 var message = String.format("GET request for getVenues API at: %s returned unexpected response status: %d",
@@ -117,7 +117,7 @@ public class EventManagerRestClient extends EventManagerRestClientBase {
             if (statusCode == HttpStatus.SC_OK) {
                 var payload = response.getEntity().getContent().readAllBytes();
                 var events =  (Collection<Event>) serde.deserialiseToCollection(payload, Event.class);
-                log.info("events.json API invoked successfully. Event details returned is {}", events);
+                log.debug("events.json API invoked successfully. Event details returned is {}", events);
                 return events;
             } else {
                 var message = String.format("GET request for getEvents API at: %s returned unexpected response status: %d",
