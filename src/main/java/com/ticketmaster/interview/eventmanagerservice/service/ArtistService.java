@@ -2,6 +2,8 @@ package com.ticketmaster.interview.eventmanagerservice.service;
 
 import com.ticketmaster.interview.eventmanagerservice.model.ArtistInformation;
 
+import reactor.core.publisher.Mono;
+
 /**
  * Contract defining event-management operations to handle
  *
@@ -9,5 +11,5 @@ import com.ticketmaster.interview.eventmanagerservice.model.ArtistInformation;
  */
 public interface ArtistService {
 
-    ArtistInformation getArtistInfo(String artistId);
+    Mono<ArtistInformation> getArtistInfo(String artistId);
 }
