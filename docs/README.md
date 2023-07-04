@@ -122,7 +122,7 @@ This command will start the service and once service is up & running, you can in
 Java 17
 Embedded Tomcat container
 Gradle build tool
-Apache Http Client for REST invocation
+Spring Boot Reactive WebClient for REST invocation
 SLF4J for logging
 Lombok for creating model classes
 ```
